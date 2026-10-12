@@ -391,29 +391,50 @@ systemctl status apache2 mysql cron
 The repository keeps the application areas visible so deployment and maintenance
 are easy to audit:
 
-| Path | Purpose |
+| مسیر | توضیح |
 |------|---------|
-| `app/` | Shared application services and business logic |
-| `api/` | HTTP/API endpoints and callbacks |
-| `config.php` | Runtime configuration; fill with private values on the server only |
-| `cronbot/` | Scheduled expiry, payment, backup and maintenance workers |
-| `db/` | Database helpers and schema-related code |
-| `install/` | Installation assets and setup helpers |
-| `lang/` | Persian, English and other language resources |
-| `modules/` | Feature modules such as shop, wallet, referrals and reports |
-| `panel/` | Main web administration panel |
-| `panels/` | VPN-panel drivers and integrations |
-| `payment/` | Payment gateway adapters and callback handlers |
-| `reseller/` | Reseller dashboard and reseller operations |
-| `storage/` | Runtime storage, generated files and logs |
-| `sub/` | Subscription/configuration endpoints |
-| `vpnbot/` | Telegram bot runtime and bot templates |
-| `install.sh` | Official interactive and CLI installer |
-| `composer.json` | PHP dependencies; `vendor/` is rebuilt during deployment |
+| `app/` | سرویس‌های اصلی برنامه و منطق تجاری پروژه |
+| `api/` | مسیرهای API، درخواست‌های HTTP و callbackها |
+| `config.php` | تنظیمات اجرا؛ مقادیر خصوصی فقط روی سرور وارد شوند |
+| `cronbot/` | وظایف زمان‌بندی‌شده برای انقضا، پرداخت، پشتیبان‌گیری و نگهداری |
+| `db/` | ابزارهای اتصال به دیتابیس و کدهای مربوط به ساختار جداول |
+| `install/` | فایل‌ها و ابزارهای کمکی نصب و راه‌اندازی |
+| `lang/` | فایل‌های زبان فارسی، انگلیسی و سایر زبان‌ها |
+| `modules/` | ماژول‌های فروشگاه، کیف پول، دعوت دوستان، گزارش‌ها و امکانات جانبی |
+| `panel/` | پنل اصلی مدیریت وب و تنظیمات مدیر |
+| `panels/` | درایورها و اتصال به پنل‌های مختلف VPN |
+| `payment/` | اتصال‌دهنده‌های درگاه پرداخت و پردازش callbackها |
+| `reseller/` | داشبورد نمایندگان و عملیات مربوط به فروشندگان |
+| `storage/` | فایل‌های اجرایی، فایل‌های تولیدشده و لاگ‌های زمان اجرا |
+| `sub/` | مسیرهای ساخت اشتراک و ارسال تنظیمات کانفیگ |
+| `vpnbot/` | هسته اجرای ربات تلگرام و قالب ربات‌ها |
+| `install.sh` | نصب‌کننده رسمی تعاملی و خط فرمان پروژه |
+| `composer.json` | فهرست وابستگی‌های PHP؛ پوشه `vendor/` هنگام نصب ساخته می‌شود |
 
 The repository does not publish runtime secrets or the generated `vendor/`
 directory. This keeps the source reviewable while allowing a clean server to
 reproduce the complete PHP runtime with Composer.
+
+#### Root files
+
+| فایل | توضیح |
+|------|-------------|
+| `install.sh` | نصب، به‌روزرسانی، حذف، مهاجرت، تمدید SSL و اجرای دستورات خط فرمان |
+| `config.php` | تنظیمات دیتابیس، تلگرام، دامنه و درگاه‌ها؛ مقادیر نمونه فقط روی سرور جایگزین شوند |
+| `index.php` | ورودی اصلی وب و راه‌اندازی اولیه برنامه |
+| `admin.php` | پردازش درخواست‌های مدیریتی و عملیات محافظت‌شده پنل |
+| `botapi.php` | توابع ارتباط با Telegram Bot API و پردازش پاسخ‌ها |
+| `function.php` | توابع عمومی و مشترک مورد استفاده بخش‌های مختلف پروژه |
+| `panels.php` | انتخاب پنل و ورود به بخش مدیریت پنل‌ها |
+| `request.php` | پردازش درخواست‌های وب/API و مسیردهی callbackها |
+| `table.php` | تعریف‌ها و ساختارهای مربوط به جداول دیتابیس |
+| `keyboard.php` | ساخت کیبوردها و منوهای ربات تلگرام |
+| `jdf.php` | توابع تاریخ و زمان شمسی/جلالی |
+| `composer.json` | فهرست وابستگی‌های PHP پروژه |
+| `composer.lock` | نسخه‌های قفل‌شده برای نصب دقیق و قابل تکرار |
+| `.htaccess` | قوانین مسیردهی و دسترسی Apache |
+| `.gitignore` | جلوگیری از انتشار فایل‌های موقت، اطلاعات محرمانه و وابستگی‌های تولیدشده |
+| `LICENSE` | مجوز AGPL-3.0 پروژه |
 
 ### Update
 
