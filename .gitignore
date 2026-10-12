@@ -1,0 +1,21 @@
+# Composer-managed dependencies — installed by install.sh at install/update time.
+# Never commit these; run `composer install` to recreate them.
+/vendor/
+
+# Composer runtime artifacts
+composer.phar
+
+# Runtime / generated files
+error_log
+cronbot/.run.lock
+/storage/**
+!/storage/cache/
+!/storage/.htaccess
+!/storage/cache/.htaccess
+modules/Reseller/Logs/*.log
+/api/hash.txt
+*.xlsx
+graphify-out
+docs
+/lang/override/
+/deploy.sh
