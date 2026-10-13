@@ -1,17 +1,22 @@
-name: PHP checks
+name: PHP quality checks
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [main]
   pull_request:
-    branches: [ "main" ]
+    branches: [main]
   workflow_dispatch:
 
 permissions:
   contents: read
 
+concurrency:
+  group: php-checks-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   php-checks:
+    name: PHP 8.2 checks
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -21,7 +26,7 @@ jobs:
         uses: shivammathur/setup-php@v2
         with:
           php-version: '8.2'
-          extensions: curl, mbstring, zip, gd, dom, simplexml, xmlwriter, xmlreader, fileinfo, iconv, bcmath
+          extensions: curl, mbstring, zip, gd, dom, simplexml, xmlwriter, xmlreader, fileinfo, iconv, bcmath, pdo_mysql
           tools: composer:v2
           coverage: none
 
@@ -35,8 +40,7 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          find . -path './vendor' -prune -o -name '*.php' -type f -print0 \
-            | xargs -0 -n1 php -l
+          find . -path './vendor' -prune -o -name '*.php' -type f -print0 | xargs -0 -n1 php -l
 
       - name: Verify Composer autoloader
         run: test -f vendor/autoload.php

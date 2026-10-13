@@ -1,0 +1,17 @@
+name: پیشنهاد قابلیت
+description: پیشنهاد خود را برای بهترشدن NR PRO BOT ثبت کنید
+title: "[FEATURE] "
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: چه مشکلی را حل می‌کند؟
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: پیشنهاد شما
+    validations:
+      required: true

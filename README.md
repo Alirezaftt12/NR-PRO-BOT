@@ -12,7 +12,7 @@
     <img src="https://img.shields.io/badge/Telegram-Group-229ED9?style=for-the-badge&logo=telegram&logoColor=white" alt="Telegram Group"/>
   </a>
   <a href="https://nrprobot.com/docs/">
-    <img src="https://img.shields.io/badge/Docs-nrprobot.com-38BDF8?style=for-the-badge&logo=readthedocs&logoColor=white" alt="Documentation"/>
+    <img src="https://img.shields.io/badge/Docs-README-38BDF8?style=for-the-badge&logo=readthedocs&logoColor=white" alt="Documentation"/>
   </a>
 </p>
 
@@ -91,14 +91,16 @@ It connects directly to your panels, builds configurations automatically, accept
 
 ## 📖 Documentation
 
-The complete user manual lives at **[nrprobot.com/docs](https://nrprobot.com/docs/)** — 61 pages covering every part of the bot, written in **Persian (فارسی)**.
+راهنمای اصلی پروژه در همین مخزن و به زبان **فارسی** نگهداری می‌شود. این README
+نصب، امکانات، Pro، ساختار فایل‌ها و عیب‌یابی را پوشش می‌دهد و [CHANGELOG.md](CHANGELOG.md)
+تاریخچه نسخه‌ها را ثبت می‌کند.
 
 It is not a feature list: every menu is documented with the exact order of the steps the bot asks for, what each field accepts, the error message you get when it rejects your input, and the mistake that most often breaks that feature.
 
 | Section | What it covers |
 |---------|----------------|
-| **شروع** (Getting started) | Architecture, requirements, server install, shared-host install, CLI flags, updating and removing |
-| **ساختار** (Structure) | Repository layout, database tables, which file does what |
+| **شروع** (Getting started) | معماری، پیش‌نیازها، نصب سرور، به‌روزرسانی و حذف |
+| **ساختار** (Structure) | ساختار واقعی مخزن، دیتابیس و نقش هر پوشه |
 | **پنل‌ها** (Panels) | Adding each of the 13 panel types, protocol & inbound setup, per-panel menus, manual config creation, node management |
 | **فروشگاه** (Shop) | Products, categories, trial accounts, On-Hold services, bulk purchase, manual sale, renewals and location changes |
 | **پرداخت** (Payments) | Card-to-card with receipt approval, every online and crypto gateway, wallet and refunds |
@@ -463,21 +465,20 @@ are easy to audit:
 
 | مسیر | توضیح |
 |------|---------|
-| `app/` | سرویس‌های اصلی برنامه و منطق تجاری پروژه |
-| `api/` | مسیرهای API، درخواست‌های HTTP و callbackها |
+| `index.php`, `admin.php` | ورودی ربات و مسیرهای مدیریت |
 | `config.php` | تنظیمات اجرا؛ مقادیر خصوصی فقط روی سرور وارد شوند |
-| `cronbot/` | وظایف زمان‌بندی‌شده برای انقضا، پرداخت، پشتیبان‌گیری و نگهداری |
+| `botapi.php`, `request.php` | ارتباط با Telegram و درخواست‌های HTTP |
 | `db/` | ابزارهای اتصال به دیتابیس و کدهای مربوط به ساختار جداول |
-| `install/` | فایل‌ها و ابزارهای کمکی نصب و راه‌اندازی |
+| `install.sh` | نصب، به‌روزرسانی، SSL و مدیریت سرویس |
 | `lang/` | فایل‌های زبان فارسی، انگلیسی و سایر زبان‌ها |
-| `modules/` | ماژول‌های فروشگاه، کیف پول، دعوت دوستان، گزارش‌ها و امکانات جانبی |
-| `panel/` | پنل اصلی مدیریت وب و تنظیمات مدیر |
 | `panels/` | درایورها و اتصال به پنل‌های مختلف VPN |
-| `payment/` | اتصال‌دهنده‌های درگاه پرداخت و پردازش callbackها |
-| `reseller/` | داشبورد نمایندگان و عملیات مربوط به فروشندگان |
-| `storage/` | فایل‌های اجرایی، فایل‌های تولیدشده و لاگ‌های زمان اجرا |
-| `sub/` | مسیرهای ساخت اشتراک و ارسال تنظیمات کانفیگ |
-| `vpnbot/` | هسته اجرای ربات تلگرام و قالب ربات‌ها |
+| `ibsng/` | اتصال و ماژول IBSng |
+| `.github/` | CI، قالب Issue و الگوی Pull Request |
+
+## 🤝 مشارکت و امنیت
+
+برای مشارکت، [CONTRIBUTING.md](CONTRIBUTING.md) را بخوانید. گزارش آسیب‌پذیری
+امنیتی باید طبق [SECURITY.md](SECURITY.md) و خارج از Issue عمومی ارسال شود.
 | `install.sh` | نصب‌کننده رسمی تعاملی و خط فرمان پروژه |
 | `composer.json` | فهرست وابستگی‌های PHP؛ پوشه `vendor/` هنگام نصب ساخته می‌شود |
 

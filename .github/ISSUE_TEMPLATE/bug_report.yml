@@ -1,0 +1,35 @@
+name: گزارش خطا
+description: یک خطا یا رفتار غیرمنتظره را با جزئیات گزارش کنید
+title: "[BUG] "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        لطفاً اطلاعات حساس مانند توکن ربات، رمز دیتابیس، کلید درگاه و IP خصوصی را ارسال نکنید.
+  - type: input
+    id: version
+    attributes:
+      label: نسخه
+      placeholder: "مثلاً 0.7.1"
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: مراحل بازتولید
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: نتیجه مورد انتظار
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: نتیجه واقعی و لاگ مرتبط
+      description: لاگ را بدون اطلاعات محرمانه ارسال کنید.
+    validations:
+      required: true
