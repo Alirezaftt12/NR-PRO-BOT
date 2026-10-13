@@ -995,6 +995,17 @@ $list_marzban_panel_usertest['inline_keyboard'][] = [
 ];
 $list_marzban_usertest = json_encode($list_marzban_panel_usertest);
 
+// Trial products are intentionally separated from the normal service flow.
+// Each option is handled server-side and can be given its own one-day policy.
+$trial_service_menu = json_encode([
+    'inline_keyboard' => [
+        [['text' => '🖥 پنل وب آزمایشی', 'callback_data' => 'trial_web']],
+        [['text' => '🤖 ربات نمایندگی آزمایشی', 'callback_data' => 'trial_agent_bot']],
+        [['text' => '⚙️ کانفیگ آزمایشی', 'callback_data' => 'trial_config']],
+        [['text' => $textbotlang['users']['backbtn'], 'callback_data' => 'backuser']],
+    ],
+], JSON_UNESCAPED_UNICODE);
+
 //--------------------------------------------------
     $product = [];
     $stmt = $pdo->prepare("SELECT * FROM product WHERE Location = :text or Location = '/all' ");

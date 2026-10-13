@@ -2922,7 +2922,73 @@ if ($text == "/start" || $datain == "start" || $text == "start") {
     $type = "transfertouser";
     $price = "0";
     $stmt->execute([$from_id, $nameloc['username'], $value, $type, $dateacc, $price]);
-} elseif ($user['step'] == "createusertest" || preg_match('/locationtest_(.*)/', $datain, $dataget) || $text == $textbotlang['textbot']['userTest'] || $datain == "usertestbtn" || $text == "usertest" || $text == "/free") {
+} elseif ($datain == "usertestbtn" || $text == $textbotlang['textbot']['userTest']) {
+    if (!check_active_btn($setting['keyboardmain'], "text_usertest")) {
+        sendmessage($from_id, $textbotlang['users']['usertest']['unavailable'], null, 'HTML');
+        return;
+    }
+    sendmessage($from_id, $textbotlang['users']['usertest']['selectTrialType'], $trial_service_menu, 'HTML');
+    return;
+} elseif ($datain == "trial_web") {
+    try {
+        $trialUsername = 'trial' . preg_replace('/[^0-9]/', '', (string) $from_id) . bin2hex(random_bytes(2));
+        $trialPassword = bin2hex(random_bytes(6));
+        $trialExpires = date('Y-m-d H:i:s', time() + 86400);
+        $stmt = $pdo->prepare(
+            "INSERT INTO resellers (user_id, username, password, name, status, created_by, created_at, expire, max_customers, max_configs, max_volume_gb, max_days)\n"
+            . 'VALUES (?, ?, ?, ?, \'active\', ?, ?, ?, 1, 1, 10, 1)'
+        );
+        $stmt->execute([
+            (string) $from_id,
+            $trialUsername,
+            password_hash($trialPassword, PASSWORD_DEFAULT),
+            'NR trial',
+            (string) $from_id,
+            date('Y-m-d H:i:s'),
+            $trialExpires,
+        ]);
+        $trialUrl = 'https://' . $domainhosts . '/trial_panel.php';
+        $trialText = sprintf(
+            $textbotlang['users']['usertest']['webTrialCreated'],
+            htmlspecialchars($trialUrl, ENT_QUOTES, 'UTF-8'),
+            htmlspecialchars($trialUsername, ENT_QUOTES, 'UTF-8'),
+            htmlspecialchars($trialPassword, ENT_QUOTES, 'UTF-8')
+        );
+        sendmessage($from_id, $trialText, $trial_service_menu, 'HTML');
+    } catch (Throwable $error) {
+        error_log('trial web provisioning failed: ' . $error->getMessage());
+        sendmessage($from_id, $textbotlang['users']['usertest']['webTrialUnavailable'], $trial_service_menu, 'HTML');
+    }
+    return;
+} elseif ($datain == "trial_agent_bot") {
+    sendmessage($from_id, $textbotlang['users']['usertest']['agentBotToken'], $backuser, 'HTML');
+    step('trial_agent_bot_token', $from_id);
+    return;
+} elseif ($user['step'] == "trial_agent_bot_token") {
+    $trialToken = trim((string) $text);
+    if (!preg_match('/^\d{6,12}:[A-Za-z0-9_-]{30,}$/', $trialToken)) {
+        sendmessage($from_id, $textbotlang['users']['usertest']['invalidBotToken'], $backuser, 'HTML');
+        return;
+    }
+    $botInfo = telegram('getMe', [], $trialToken);
+    if (!is_array($botInfo) || empty($botInfo['ok']) || empty($botInfo['result']['username'])) {
+        sendmessage($from_id, $textbotlang['users']['usertest']['invalidBotToken'], $backuser, 'HTML');
+        return;
+    }
+    try {
+        $trialOwner = 'trial_' . preg_replace('/[^A-Za-z0-9_]/', '', (string) $from_id) . '_' . bin2hex(random_bytes(3));
+        $createdTrialBot = provisionAgentBot($trialOwner, $trialToken, (string) $botInfo['result']['username'], (string) $from_id);
+        $botSettings = json_decode((string) (select('botsaz', 'setting', 'id_user', $trialOwner, 'select')['setting'] ?? '{}'), true) ?: [];
+        $botSettings['trial_expires_at'] = time() + 86400;
+        update('botsaz', 'setting', json_encode($botSettings, JSON_UNESCAPED_UNICODE), 'id_user', $trialOwner);
+        step('home', $from_id);
+        sendmessage($from_id, sprintf($textbotlang['users']['usertest']['agentBotCreated'], $createdTrialBot['username']), $keyboard, 'HTML');
+    } catch (Throwable $error) {
+        error_log('trial agent bot provisioning failed: ' . $error->getMessage());
+        sendmessage($from_id, $textbotlang['users']['usertest']['agentBotFailed'], $backuser, 'HTML');
+    }
+    return;
+} elseif ($datain == "trial_config" || $user['step'] == "createusertest" || preg_match('/locationtest_(.*)/', $datain, $dataget) || $text == "usertest" || $text == "/free") {
     if (!check_active_btn($setting['keyboardmain'], "text_usertest")) {
         sendmessage($from_id, $textbotlang['users']['usertest']['unavailable'], null, 'HTML');
         return;

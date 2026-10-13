@@ -23,6 +23,7 @@ function nr_cron_jobs(): array
         ['job' => 'reseller', 'schedule' => '*/1 * * * *', 'title' => 'بازیابی و نگهداری پنل نمایندگان'],
         ['job' => 'backupbot', 'schedule' => '0 */5 * * *', 'title' => 'پشتیبان‌گیری ربات‌ساز'],
         ['job' => 'lottery', 'schedule' => '*/1 * * * *', 'title' => 'قرعه‌کشی و امتیازات'],
+        ['job' => 'agenttrial', 'schedule' => '*/1 * * * *', 'title' => 'پاکسازی تست ربات‌های نمایندگی'],
     ];
 }
 
