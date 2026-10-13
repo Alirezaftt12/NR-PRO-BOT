@@ -64,6 +64,8 @@ return [
         text_edit JSON NULL,
         limitnumber varchar(200) NULL,
         webhook_secret varchar(200) NOT NULL DEFAULT ''
+        ,welcome_reward_status varchar(20) NOT NULL DEFAULT '0'
+        ,welcome_reward_amount varchar(30) NOT NULL DEFAULT '0'
         SQL,
     'seedOnCreate' => [
         [
@@ -161,5 +163,7 @@ return [
         ['webhook_secret', null, "VARCHAR(200) NOT NULL DEFAULT ''"],
         ['alert_balance', '0', 'VARCHAR(10)'],
         ['balance_value_alert', '10000', 'VARCHAR(30)'],
+        ['welcome_reward_status', '0', 'VARCHAR(20)'],
+        ['welcome_reward_amount', '0', 'VARCHAR(30)'],
     ],
 ];

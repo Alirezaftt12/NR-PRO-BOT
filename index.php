@@ -76,6 +76,7 @@ if ($setting['statusnewuser'] == "onnewuser" && !rowExists("user", "id", $from_i
     }
 }
 $date = time();
+$newUserCreated = false;
 if ($from_id != 0) {
     if ($setting['verifystart'] != "onverify") {
         $valueverify = 1;
@@ -94,6 +95,7 @@ if ($from_id != 0) {
     $stmt->execute();
     if ($stmt->rowCount() > 0) {
         clearSelectCache('user');
+        $newUserCreated = true;
     }
 }
 $user = select("user", "*", "id", $from_id, "select");
@@ -160,6 +162,27 @@ if (!in_array($user['lang'], $lang_array)) {
 }
 if ($user['register'] == "none") {
     update("user", "register", time(), "id", $from_id);
+}
+
+// One-time welcome balance reward for genuinely new users. The database flag
+// makes the credit idempotent even if Telegram retries the same update.
+if ($newUserCreated && ($setting['welcome_reward_status'] ?? '0') === '1') {
+    $welcomeReward = max(0, (int) ($setting['welcome_reward_amount'] ?? 0));
+    if ($welcomeReward > 0) {
+        $rewardStmt = $pdo->prepare(
+            'UPDATE user SET Balance = Balance + :amount, welcome_reward_claimed = 1
+             WHERE id = :id AND welcome_reward_claimed = 0'
+        );
+        $rewardStmt->execute([':amount' => $welcomeReward, ':id' => $from_id]);
+        if ($rewardStmt->rowCount() > 0) {
+            sendmessage(
+                $from_id,
+                sprintf($textbotlang['users']['welcomeReward'], number_format($welcomeReward)),
+                null,
+                'HTML'
+            );
+        }
+    }
 }
 if (!in_array($user['agent'], ["n", "n2", "f"]))
     update("user", "agent", "f", "id", $from_id);

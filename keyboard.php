@@ -415,6 +415,8 @@ $featureCategories = [
             'Authenticationiran' => ['label' => $textbotlang['Admin']['Status']['Authenticationiran'], 'setting' => 'iran_number', 'on' => 'onAuthenticationiran', 'off' => 'offAuthenticationiran'],
             'verifystart' => ['label' => $textbotlang['keyboard']['authenticate'], 'setting' => 'verifystart', 'on' => 'onverify', 'off' => 'offverify'],
             'verifybyuser' => ['label' => $textbotlang['keyboard']['authWithLink'], 'setting' => 'verifybucodeuser', 'on' => 'onverify', 'off' => 'offverify'],
+            'welcome_reward' => ['label' => $textbotlang['keyboard']['welcomeReward'], 'setting' => 'welcome_reward_status', 'on' => '1', 'off' => '0'],
+            'welcome_reward_amount' => ['label' => $textbotlang['keyboard']['welcomeRewardAmount'], 'config' => 'setwelcomereward'],
         ],
     ],
     'sales' => [

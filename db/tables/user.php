@@ -40,6 +40,7 @@ return [
         token VARCHAR(100) NULL,
         lang VARCHAR(5) NULL DEFAULT 'fa',
         reseller_id INT UNSIGNED NULL
+        ,welcome_reward_claimed TINYINT(1) NOT NULL DEFAULT 0
         SQL,
     'columns' => [
         ['username', 'none'],
@@ -74,5 +75,6 @@ return [
         // Reseller Panel module: set on mirrored customer rows to mark the owning
         // reseller. Indexed soft link (see db/tables/resellers.php for why not a FK).
         ['reseller_id', null, 'INT UNSIGNED NULL'],
+        ['welcome_reward_claimed', '0', 'TINYINT(1)'],
     ],
 ];

@@ -217,6 +217,7 @@ return [
 ✅ 正确的用户名：ali12 | mahdi | ws1_ksdf
 ❌ 错误的用户名：ali_ | tele@ | _mahdi | محسن',
                 'text_start' => '你好，欢迎',
+                'welcomeReward' => '🎁 您的钱包已获得 %s 托曼的新用户奖励。',
                 'Balance' => [
                         'addBalanceUser' => '⭕️ 手动增加余额',
                         'blockedfake' => '⭕️ 封禁用户',
@@ -1253,6 +1254,7 @@ https://t.me/%s?start=%s',
 例如：
 <code>%s</code>',
                 'invalidValue' => '❌ 值无效',
+                'welcomeReward' => ['askAmount' => '💰 请发送新用户奖励金额（托曼）。\n\n当前金额：%s 托曼\n请在功能菜单中关闭此功能。', 'saved' => '✅ 新用户奖励金额已保存。'],
                 'mainAdminOnly' => '❌ 此部分仅主管理员可用',
                 'installerNotice' => [
                         'user' => '⛔️ <b>机器人暂时不可用。</b>

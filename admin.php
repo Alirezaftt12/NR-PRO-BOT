@@ -1484,6 +1484,17 @@ elseif ($datain == "systemsms") {
     }
     $categoryText = sprintf($textbotlang['Admin']['Status']['categoryTitle'], $featureCategories[$categoryKey]['label']);
     Editmessagetext($from_id, $message_id, $categoryText, featureCategoryKeyboard($categoryKey));
+} elseif ($datain == "setwelcomereward" && $adminrulecheck['rule'] == "administrator") {
+    sendmessage($from_id, sprintf($textbotlang['Admin']['welcomeReward']['askAmount'], number_format((int) ($setting['welcome_reward_amount'] ?? 0))), $backadmin, 'HTML');
+    step('getwelcomereward', $from_id);
+} elseif ($user['step'] == 'getwelcomereward' && $adminrulecheck['rule'] == "administrator") {
+    if (!ctype_digit($text)) {
+        sendmessage($from_id, $textbotlang['Admin']['invalidValue'], $backadmin, 'HTML');
+        return;
+    }
+    update('setting', 'welcome_reward_amount', (string) max(0, (int) $text));
+    sendmessage($from_id, $textbotlang['Admin']['welcomeReward']['saved'], $setting_panel, 'HTML');
+    step('home', $from_id);
 } elseif ($text == $textbotlang['keyboard']['botReports'] && $adminrulecheck['rule'] == "administrator") {
     $topicRights = ['can_manage_topics' => true, 'can_post_messages' => true, 'can_pin_messages' => true];
     $selectGroupKeyboard = json_encode([

@@ -217,6 +217,7 @@ To enable it, the bot owner needs a Telegram Premium subscription, or the bot mu
 ✅ Valid usernames: ali12 | mahdi | ws1_ksdf
 ❌ Invalid usernames: ali_ | tele@ | _mahdi | محسن',
                 'text_start' => 'Hello, welcome',
+                'welcomeReward' => '🎁 %s tomans were added to your wallet as a welcome reward.',
                 'Balance' => [
                         'addBalanceUser' => '⭕️ Manually add balance',
                         'blockedfake' => '⭕️ Block user',
@@ -1253,6 +1254,7 @@ This step is mandatory',
 Example: 
 <code>%s</code>',
                 'invalidValue' => '❌ Invalid value',
+                'welcomeReward' => ['askAmount' => '💰 Send the welcome reward amount in toman.\n\nCurrent amount: %s toman\nTurn the feature off from the features menu to disable it.', 'saved' => '✅ Welcome reward amount saved.'],
                 'mainAdminOnly' => '❌ This section is only available to the main admin',
                 'installerNotice' => [
                         'user' => '⛔️ <b>The bot is temporarily unavailable.</b>
