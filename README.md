@@ -40,6 +40,7 @@
 
 - [✨ Overview](#-overview)
 - [📖 Documentation](#-documentation)
+- [📝 Changelog](#-changelog)
 - [🧩 Supported Panels](#-supported-panels)
 - [💳 Payment Gateways](#-payment-gateways)
 - [⚙️ Features](#️-features)
@@ -106,6 +107,10 @@ It is not a feature list: every menu is documented with the exact order of the s
 | **نگهداری** (Operations) | Cron jobs, backup and restore, optimization, security checklist, troubleshooting |
 
 > The docs are generated from the bot's own source, so menu names, limits and error strings match the code rather than an older release.
+
+## 📝 Changelog
+
+تاریخچه‌ی نسخه‌ها، امکانات جدید، اصلاحات فنی و رفع خطاها در فایل [CHANGELOG.md](CHANGELOG.md) ثبت می‌شود. برای دیدن آخرین تغییرات، نسخه‌ی فعلی و موارد در حال توسعه به آن مراجعه کنید.
 
 ---
 
