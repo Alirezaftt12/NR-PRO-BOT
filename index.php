@@ -5818,7 +5818,38 @@ if ($text == "/start" || $datain == "start" || $text == "start") {
         ]);
     }
 } elseif ($text == $textbotlang['textbot']['tariffList'] || $datain == "Tariff_list") {
-    sendmessage($from_id, $textbotlang['textbot']['tariffListDesc'], null, 'HTML');
+    $tariffStmt = $pdo->prepare(
+        "SELECT name_product, Location, Volume_constraint, Service_time, price_product, note
+         FROM product
+         WHERE status_product = 'active'
+           AND (agent = :agent OR agent = 'all' OR agent IS NULL)
+           AND (Location = '/all' OR Location IN (SELECT name_panel FROM marzban_panel WHERE status = 'active'))
+         ORDER BY CAST(Service_time AS UNSIGNED), CAST(Volume_constraint AS UNSIGNED), CAST(price_product AS UNSIGNED)"
+    );
+    $tariffStmt->execute([':agent' => (string) ($user['agent'] ?? 'f')]);
+    $tariffs = $tariffStmt->fetchAll(PDO::FETCH_ASSOC);
+
+    if (empty($tariffs)) {
+        sendmessage($from_id, $textbotlang['textbot']['tariffListEmpty'] ?? $textbotlang['textbot']['tariffListDesc'], null, 'HTML');
+    } else {
+        $tariffText = $textbotlang['textbot']['tariffListHeader'] . "\n\n";
+        foreach ($tariffs as $tariff) {
+            $location = $tariff['Location'] === '/all'
+                ? ($textbotlang['textbot']['tariffAllLocations'] ?? 'همه لوکیشن‌ها')
+                : $tariff['Location'];
+            $note = trim((string) ($tariff['note'] ?? ''));
+            $tariffText .= sprintf(
+                $textbotlang['textbot']['tariffListRow'],
+                htmlspecialchars((string) ($tariff['name_product'] ?? 'اشتراک'), ENT_QUOTES, 'UTF-8'),
+                htmlspecialchars((string) $location, ENT_QUOTES, 'UTF-8'),
+                htmlspecialchars((string) ($tariff['Volume_constraint'] ?? '0'), ENT_QUOTES, 'UTF-8'),
+                htmlspecialchars((string) ($tariff['Service_time'] ?? '0'), ENT_QUOTES, 'UTF-8'),
+                number_format((float) ($tariff['price_product'] ?? 0)),
+                $note !== '' ? "\n🗒 " . htmlspecialchars($note, ENT_QUOTES, 'UTF-8') : ''
+            );
+        }
+        sendmessage($from_id, $tariffText, null, 'HTML');
+    }
 } elseif ($datain == "colselist") {
     deletemessage($from_id, $message_id);
     sendmessage($from_id, $textbotlang['users']['back'], $keyboard, 'HTML');

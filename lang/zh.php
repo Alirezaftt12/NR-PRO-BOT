@@ -3713,6 +3713,10 @@ f,n.n2',
                 'support' => '☎️ 客服',
                 'tariffList' => '💵 订阅资费',
                 'tariffListDesc' => '未设置',
+                'tariffListHeader' => '💵 <b>订阅价格</b>',
+                'tariffListEmpty' => '⚠️ 尚未配置可显示的有效产品。',
+                'tariffAllLocations' => '所有位置',
+                'tariffListRow' => '📦 <b>%s</b>\n📍 位置：%s\n🗜 流量：%s GB\n⏳ 时长：%s 天\n💰 价格：%s تومان%s\n\n',
                 'testExpired' => '您好，尊敬的用户 
 您用户名为 {username} 的测试服务已结束
 我们希望您对服务的便捷和速度有良好的体验。如果您对测试服务满意，可以购买您专属的服务，享受最高质量的自由互联网😉🔥

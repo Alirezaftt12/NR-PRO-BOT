@@ -3713,6 +3713,10 @@ After joining, click the check membership button',
                 'support' => '☎️ Support',
                 'tariffList' => '💵 Subscription rates',
                 'tariffListDesc' => 'Not set',
+                'tariffListHeader' => '💵 <b>Subscription rates</b>',
+                'tariffListEmpty' => '⚠️ No active product is configured yet.',
+                'tariffAllLocations' => 'All locations',
+                'tariffListRow' => '📦 <b>%s</b>\n📍 Location: %s\n🗜 Volume: %s GB\n⏳ Duration: %s days\n💰 Price: %s toman%s\n\n',
                 'testExpired' => 'Hello, dear user 
 Your test service with username {username} has ended
 We hope you had a good experience with the ease and speed of your service. If you were satisfied with your test service, you can get your own dedicated service and enjoy free internet with the highest quality😉🔥
