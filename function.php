@@ -2,6 +2,9 @@
 require_once 'vendor/autoload.php';
 require 'config.php';
 ini_set('error_log', 'error_log');
+// Hardened VPS kernels may block executable JIT memory; disable PCRE JIT so
+// regular-expression calls remain reliable without changing their behaviour.
+ini_set('pcre.jit', '0');
 
 use Endroid\QrCode\Builder\Builder;
 use Endroid\QrCode\Encoding\Encoding;
