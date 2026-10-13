@@ -2929,7 +2929,7 @@ if ($text == "/start" || $datain == "start" || $text == "start") {
     }
     sendmessage($from_id, $textbotlang['users']['usertest']['selectTrialType'], $trial_service_menu, 'HTML');
     return;
-} elseif ($datain == "trial_web") {
+} elseif ($datain == "trial_web" || $text == '🖥 پنل وب آزمایشی') {
     error_log('trial_web provisioning requested for user ' . (string) $from_id);
     try {
         $trialUsername = 'trial' . preg_replace('/[^0-9]/', '', (string) $from_id) . bin2hex(random_bytes(2));
@@ -2961,7 +2961,7 @@ if ($text == "/start" || $datain == "start" || $text == "start") {
         sendmessage($from_id, $textbotlang['users']['usertest']['webTrialUnavailable'], $trial_service_menu, 'HTML');
     }
     return;
-} elseif ($datain == "trial_agent_bot") {
+} elseif ($datain == "trial_agent_bot" || $text == '🤖 ربات نمایندگی آزمایشی') {
     sendmessage($from_id, $textbotlang['users']['usertest']['agentBotToken'], $backuser, 'HTML');
     step('trial_agent_bot_token', $from_id);
     return;
